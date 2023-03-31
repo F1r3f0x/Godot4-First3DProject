@@ -1,0 +1,47 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Squash the Creeps (3D)"
+config/features=PackedStringArray("4.0")
+config/icon="res://icon.png"
+
+[dotnet]
+
+project/assembly_name="Squash the Creeps (3D)"
+
+[input]
+
+move_left={
+"deadzone": 0.5,
+"events": []
+}
+move_right={
+"deadzone": 0.5,
+"events": []
+}
+move_forward={
+"deadzone": 0.5,
+"events": []
+}
+move_back={
+"deadzone": 0.5,
+"events": []
+}
+jump={
+"deadzone": 0.5,
+"events": []
+}
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/filters/msaa=3
