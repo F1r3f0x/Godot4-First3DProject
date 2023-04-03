@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://bobrobmkpk2r"]
+
+[ext_resource type="Script" path="res://scripts/Mob.gd" id="1_sdbkp"]
+[ext_resource type="PackedScene" uid="uid://dl60oncv6opg5" path="res://art/mob.glb" id="2_3pwad"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fdqw8"]
+size = Vector3(1.5, 1, 1.5)
+
+[sub_resource type="Animation" id="Animation_yd0dy"]
+resource_name = "float"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Character:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.7, 1.2),
+"transitions": PackedFloat32Array(0.435277, 2.07053, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.65, 0), Vector3(0, 0.35, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Character:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.5, 1.2),
+"transitions": PackedFloat32Array(0.435277, 2.07053, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.139626, 0, 0), Vector3(-0.15708, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r87ud"]
+_data = {
+"float": SubResource("Animation_yd0dy")
+}
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_sdbkp")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Character" parent="Pivot" instance=ExtResource("2_3pwad")]
+transform = Transform3D(1, 0, 0, 0, 0.999715, -0.0238552, 0, 0.0238552, 0.999715, 0, 0.120174, 0)
+
+[node name="CollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.306883, 0)
+shape = SubResource("BoxShape3D_fdqw8")
+
+[node name="VisibilityNotifier" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.306883, 0.279099)
+aabb = AABB(-1.14272, -1, -1.62906, 2.28545, 2, 3.25812)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "float"
+libraries = {
+"": SubResource("AnimationLibrary_r87ud")
+}
+
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="_on_visibility_notifier_screen_exited"]

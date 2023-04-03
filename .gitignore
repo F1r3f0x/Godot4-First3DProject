@@ -1,2 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
+
+.mono/metadata
+.import
+.godot
+export
